@@ -1,6 +1,7 @@
 import sys
 import wget
 import subprocess
+from send_email import sendEmail
 
 # retrieve github repo zip file link from first command line argument
 url = sys.argv[1]
@@ -16,3 +17,7 @@ with open('out.txt', 'w') as out:
     results = subprocess.run(
         ["cloc", f"{filename}"], stdout=out, stderr=subprocess.PIPE, text=True)
     print('Scan completed.\n')
+
+# email scan results
+with open('out.txt', 'r') as f:
+    sendEmail(f.read())
