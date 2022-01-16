@@ -21,3 +21,9 @@ with open('out.txt', 'w') as out:
 # email scan results
 with open('out.txt', 'r') as f:
     sendEmail(f.read())
+
+# delete repo zip file and out.txt file
+print('Now deleting scan results and repository zip file.\n')
+subprocess.run(["rm", "out.txt"])
+subprocess.run(["rm", f"{filename}"])
+print('Delete completed. Good-bye.\n')
