@@ -3,9 +3,9 @@ from config import from_email, password, to_email
 from email.message import EmailMessage
 
 
-def sendEmail(bodyMessage):
-    subject = 'Count Lines of Code Results'
-    plain_body = f'{bodyMessage}'
+def sendEmail():
+    subject = 'Count Lines of Code'
+    plain_body = 'The scan results are attached in this email.'
 
     msg = EmailMessage()
     msg['subject'] = subject
@@ -13,6 +13,9 @@ def sendEmail(bodyMessage):
     msg['to'] = to_email
 
     msg.set_content(plain_body)
+
+    with open('out.txt') as f:
+        msg.add_attachment(f.read(), filename="out.txt")
 
     with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
         try:

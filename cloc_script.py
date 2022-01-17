@@ -18,9 +18,7 @@ with open('out.txt', 'w') as out:
         ["cloc", f"{filename}"], stdout=out, stderr=subprocess.PIPE, text=True)
     print('Scan completed.\n')
 
-# email scan results
-with open('out.txt', 'r') as f:
-    sendEmail(f.read())
+sendEmail()
 
 # delete repo zip file and out.txt file
 print('Now deleting scan results and repository zip file.\n')
