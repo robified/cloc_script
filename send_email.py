@@ -1,10 +1,19 @@
 import smtplib
 from config import from_email, password, to_email
+from email.message import EmailMessage
 
 
 def sendEmail(bodyMessage):
-    # add a subject line and scan results in the body of email
-    msg = f'Subject: Count Lines of Code Results\n\n{bodyMessage}'
+    subject = 'Count Lines of Code Results'
+    plain_body = f'{bodyMessage}'
+
+    msg = EmailMessage()
+    msg['subject'] = subject
+    msg['from'] = from_email
+    msg['to'] = to_email
+
+    msg.set_content(plain_body)
+
     with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
         try:
             # encrypt the traffic
@@ -17,7 +26,9 @@ def sendEmail(bodyMessage):
             smtp.login(from_email, password)
 
             # to send email with message
-            smtp.sendmail(from_email, to_email, msg)
+            # smtp.sendmail(from_email, to_email, msg)
+            smtp.send_message(msg)
+
             print('Email with scan results sent.\n')
         except:
             print('Failed to send email.\n')
