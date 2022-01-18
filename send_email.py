@@ -29,7 +29,6 @@ def sendEmail():
             smtp.login(from_email, password)
 
             # to send email with message
-            # smtp.sendmail(from_email, to_email, msg)
             smtp.send_message(msg)
 
             print('Email with scan results sent.\n')
